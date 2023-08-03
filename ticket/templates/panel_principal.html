@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Panel Principal</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Panel Principal</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <!-- /.card -->
+
+                    <div class="card card-secondary">
+                        <div class="card-header">
+                            <h3 class="card-title">Lista de ticket</h3>
+                            <div class="card-tools pull-right">
+                                <a href="{% url 'nuevo-ticket' %}" class="btn btn-block btn-primary">Nuevo ticket</a>
+                            </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Nro. Ticket</th>
+                                    <th>Proveedor</th>
+                                    <th>Tipo recolección</th>
+                                    <th>Usuario Creador</th>
+                                    <th>Fecha Creado</th>
+                                    <th>Estado</th>
+                                    <th>Acción</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for form in TicketCabView %}
+                                <tr>
+                                    <td>{{form.pk}}</td>
+                                    <td>{{form.nro_ticket}}</td>
+                                    <td>{{form.proveedor}}</td>
+                                    <td>{{form.tipo_de_recoleccion}}</td>
+                                    <td>{{ form.created_by.first_name}} {{ form.created_by.last_name}}</td>
+                                    <td>{{form.created_at |date:"d/m/Y"}}</td>
+                                    <td>
+                                        {% if form.estado %}
+                                        <span class="badge bg-green">Abierto</span>
+                                        {% else %}
+                                        <span class="badge bg-danger">Cerrado</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="accion-button"><a class="btn btn-block btn-primary"
+                                                                 href="{% url 'modificar-ticket' form.pk %}">Modificar</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Nro. Ticket</th>
+                                    <th>Proveedor</th>
+                                    <th>Tipo recolección</th>
+                                    <th>Usuario Creador</th>
+                                    <th>Fecha Creado</th>
+                                    <th>Estado</th>
+                                    <th>Acción</th>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div class="card-footer">
+
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+{% endblock %}

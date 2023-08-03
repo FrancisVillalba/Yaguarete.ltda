@@ -1,0 +1,216 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Nuevo ticket</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Nuevo Ticket</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <!-- /.card -->
+                    <form id="ticket-cab" method="POST">
+                        <div class="card card-info">
+                            <div class="card-header">
+                                <h3 class="card-title">Nuevo ticket</h3>
+                                <div class="card-tools pull-right">
+                                    <a href="{% url 'panel-principal' %}" class="btn btn-danger">Cancelar</a>
+                                     <input type="submit" class="btn btn-primary espacio-botones"
+                                   value="Guardar">
+                                </div>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                {% csrf_token %}
+                                <div class="card card-secondary">
+                                    <div class="col-md-12">
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <div class="form-group">
+                                                    Proveedor
+                                                    {{ header_form.proveedor }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <div class="form-group">
+                                                    Tipo de recolección
+                                                    {{ header_form.tipo_de_recoleccion }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <div class="form-group">
+                                                    <br>
+                                                    Estado
+                                                    {{ header_form.estado }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <div class="form-group">
+                                                    <br>
+
+                                                </div>
+                                            </div>
+                                            {{ header_form.nro_ticket }}
+                                            {{ header_form.fecha_ingreso }}
+                                            {{ header_form.fecha_salida }}
+                                        </div>
+                                        <br/>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <div class="form-group">
+                                                    Chofer
+                                                    {{ header_form.chofer }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <div class="form-group">
+                                                    Matrícula
+                                                    {{ header_form.matricula }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <div class="form-group">
+                                                    <br>
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <div class="form-group">
+                                                    <br>
+
+                                                </div>
+                                            </div>
+                                            {{ header_form.nro_ticket }}
+                                            {{ header_form.fecha_ingreso }}
+                                            {{ header_form.fecha_salida }}
+                                        </div>
+                                        <br/>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="col-12">
+                                    <div class="card card-secondary">
+                                        <div class="card-header">
+                                            <h3 class="card-title">detalle de ticket</h3>
+                                        </div>
+                                        <div class="card-body">
+                                            {{ detail_formset.management_form }}
+                                            {% for detail_formset in detail_formset %}
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        Producto
+                                                        {{ detail_formset.producto }}
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        Peso1
+                                                        {{ detail_formset.peso1 }}
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        Peso2
+                                                        {{ detail_formset.peso2 }}
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        Peso Bruto
+                                                        {{ detail_formset.peso_bruto }}
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <div class="form-group">
+                                                        <br>
+                                                        <button type="button" class="btn btn-primary fillPesoBtn" data-index="{{ forloop.counter0 }}">Leer peso</button>
+                                                        {% comment %} <a href="{% url 'connect_to_websocket' %}" class="btn btn-primary espacio-botones">Leer Peso</a> {% endcomment %}
+                                                        {% comment %} <input type="button" id={{ forloop.counter }} class="btn btn-primary espacio-botones"value="Leer peso"> {% endcomment %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                {% if form.errors %}
+                                <div class="alert alert-danger">
+                                    {% for error in form.errors %}
+                                    <strong>Advertencia!</strong> {{ error }} está duplicado.
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </form>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const fillPesoBtns = document.querySelectorAll('.fillPesoBtn');
+        const pesoInputs = document.querySelectorAll('[id^="id_ticket_det_set-"][id$="-peso1"]');
+        const messageElements = document.querySelectorAll('[id^="message"]');
+
+        fillPesoBtns.forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                const index = this.getAttribute('data-index');
+                const pesoInput = pesoInputs[index];
+                const messageElement = messageElements[index];
+
+                // Make an AJAX request to fetch the 'Peso1' value from the server
+                fetch('/connect_to_websocket/')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.message === '0') {
+                            pesoInput.value = '0';
+                            messageElement.innerText = 'Error: Peso not available';
+                        } else {
+                            pesoInput.value = data.message;
+                            messageElement.innerText = '';
+                        }
+                    })
+                    .catch(error => {
+                        // Handle error if needed
+                    });
+            });
+        });
+    });
+</script>
+{% else %}
+<h1>No tiene permisos</h1>
+{% endif %}
+{% endblock %}

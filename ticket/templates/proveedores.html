@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Panel de proveedores</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Proveedores</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <!-- /.card -->
+
+                    <div class="card card-secondary">
+                        <div class="card-header">
+                            <h3 class="card-title">Lista de proveedores</h3>
+                            <div class="card-tools pull-right">
+                                <a href="{% url 'nuevo-proveedor' %}" class="btn btn-block btn-primary">Nuevo
+                                    proveedor</a>
+                            </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Nombre</th>
+                                    <th>Documento</th>
+                                    <th>Estado</th>
+                                    <th>Acción</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for form in ProveedoresView %}
+                                <tr>
+                                    <td>{{form.pk}}</td>
+                                    <td>{{form.nombre}}</td>
+                                    <td>{{form.documento}}</td>
+                                    <td>
+                                        {% if form.estado %}
+                                        <span class="badge bg-green">Activo</span>
+                                        {% else %}
+                                        <span class="badge bg-danger">Inactivo</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="accion-button"><a class="btn btn-block btn-primary" href="{% url 'modificar-proveedor' form.pk %}">Modificar</a></td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Nombre</th>
+                                    <th>Documento</th>
+                                    <th>Estado</th>
+                                    <th>Acción</th>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div class="card-footer">
+
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+{% endblock %}

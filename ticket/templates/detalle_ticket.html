@@ -1,0 +1,45 @@
+{% load static %}
+{% block content %}
+<div class="col-12">
+    <div class="col-12">
+        <div class="card card-secondary">
+            <div class="card-header">
+                <h3 class="card-title">detalle de ticket</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                {% csrf_token %}
+                <form id="ticket-det" action="" method="POST">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                Producto
+                                {{ detail_formset.producto }}
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                Peso1
+                                {{ detail_formset.peso1 }}
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                Peso2
+                                {{ detail_formset.peso2 }}
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                Peso Bruto
+                                {{ detail_formset.peso_bruto }}
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- /.card-body -->
+        </div>
+    </div>
+</div>
+{% endblock %}

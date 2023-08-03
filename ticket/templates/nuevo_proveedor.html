@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Nuevo proveedor</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Nuevo proveedor</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <!-- /.card -->
+                    <form id="ticket-cab" action="" method="POST">
+                        <div class="card card-info">
+
+                            <div class="card-header">
+                                <h3 class="card-title">Nuevo proveedor</h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                {% csrf_token %}
+                                <div class="card card-secondary">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <div class="form-group">
+                                                    <label>Nombre</label>
+                                                    {{ form.nombre }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <div class="form-group">
+                                                    <label>Documento</label>
+                                                    {{ form.documento }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1">
+
+                                            </div>
+                                            <div class="col-md-1">
+                                                <div class="form-group ">
+                                                    <br><br>
+                                                    <label>Activo</label>
+                                                    {{ form.estado }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                {% if form.errors %}
+                                <div class="alert alert-danger">
+                                    {% for error in form.errors %}
+                                    <!--                                        <li>{{ error }}</li> -->
+                                    <strong>Advertencia!</strong> {{ error }} está duplicado.
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="card-footer">
+                                <input type="submit" class="btn btn-primary" value="Guardar">
+                                <a href="{% url 'panel-proveedores' %}" class="btn btn-danger">Cancelar</a>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+{% else %}
+<h1>No tiene permisos</h1>
+{% endif %}
+{% endblock %}

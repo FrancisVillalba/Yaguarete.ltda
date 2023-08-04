@@ -64,8 +64,9 @@
                                         <span class="badge bg-danger">Cerrado</span>
                                         {% endif %}
                                     </td>
-                                    <td class="accion-button"><a class="btn btn-block btn-primary"
-                                                                 href="{% url 'modificar-ticket' form.pk %}">Modificar</a>
+                                    <td class="accion-button">
+                                        <a class="btn btn-primary" href="{% url 'modificar-ticket' form.pk %}">Modificar</a>
+                                        <a href="{% url 'generar-pdf' form.pk %}" class="btn btn-warning">Imprimir</a>
                                     </td>
                                 </tr>
                                 {% endfor %}

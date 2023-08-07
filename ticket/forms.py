@@ -61,10 +61,10 @@ class TicketDetailForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['producto'].widget.attrs.update({'class': 'form-control'})
-        self.fields['peso1'].widget.attrs.update({'class': 'form-control'})
-        self.fields['peso2'].widget.attrs.update({'class': 'form-control'})
-        self.fields['peso_bruto'].widget.attrs.update({'class': 'form-control'})
-        # self.fields['ticketCabId'].widget.input_type = 'hidden'
+        self.fields['peso1'].widget.attrs.update({'class': 'form-control','disabled': True})
+        self.fields['peso2'].widget.attrs.update({'class': 'form-control','disabled': True})
+        self.fields['peso_bruto'].widget.attrs.update({'class': 'form-control','disabled': True})
+        # self.fields['ticketCabId'].widget.input_type = 'hidden' 'disabled': True
 
 TicketDetailFormSet = inlineformset_factory(
     Ticket_Cab,

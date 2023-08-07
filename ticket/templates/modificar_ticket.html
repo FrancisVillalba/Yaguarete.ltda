@@ -181,25 +181,41 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const fillPesoBtns = document.querySelectorAll('.fillPesoBtn');
-        const pesoInputs = document.querySelectorAll('[id^="id_ticket_det_set-"][id$="-peso2"]');
-        const messageElements = document.querySelectorAll('[id^="message"]');
+        const pesoInputs = document.querySelectorAll('[id^="id_ticket_det_set-"][id$="-peso2"]'); 
 
+        var pesoBruto = document.querySelectorAll("[id^='id_ticket_det_set-'][id$='-peso_bruto']"); 
+        var peso1 = document.querySelectorAll("[id^='id_ticket_det_set-'][id$='-peso1']");
+
+        const messageElements = document.querySelectorAll('[id^="message"]');
+        console.log(pesoBruto);
         fillPesoBtns.forEach(function (btn) {
             btn.addEventListener('click', function () {
                 const index = this.getAttribute('data-index');
-                const pesoInput = pesoInputs[index];
+                const pesoInput = pesoInputs[index]; 
+                const peso1Input = peso1[index]; 
+                const pesoBrutoInput = pesoBruto[index]; 
                 const messageElement = messageElements[index];
 
                 // Make an AJAX request to fetch the 'Peso1' value from the server
                 fetch('/connect_to_websocket/')
                     .then(response => response.json())
                     .then(data => {
-                        if (data.message === '0') {
+                        if (data.message === '0' || data.message === '') {
+                            console.log('CEROO XD');
+                            console.log('peso1----:'+ peso1Input.value);
+                            console.log('peso2----:' + '0');
                             pesoInput.value = '0';
+                            pesoBrutoInput.value = peso1Input.value;
                             messageElement.innerText = 'Error: Peso not available';
-                        } else {
+                        } else {  
+                            console.log('NUMEROOOO XD');
+                            console.log('peso1----:' +peso1Input.value); 
+                            console.log('peso2----:' + data.message);
+                            // console.log(data.message);
+                            
                             pesoInput.value = data.message;
-                            messageElement.innerText = '';
+                            pesoBrutoInput.value = peso1Input.value - data.message;  
+                            messageElement.innerText = '';  
                         }
                     })
                     .catch(error => {
